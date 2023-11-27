@@ -5,7 +5,8 @@ basemap
 black
 bokeh
 cffi
-cupy-cuda116
+cupy-cuda12x
+docker
 flask
 hypothesis
 ipython
@@ -32,4 +33,3 @@ scipy
 seaborn
 sionna
 skyfield
-tensorflow

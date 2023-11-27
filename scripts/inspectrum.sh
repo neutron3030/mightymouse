@@ -1,27 +1,18 @@
 #!/bin/bash
 
 set -e
+source /app/scripts/.functions
 
-apt-get update
-apt-get upgrade -y
-apt-get install --no-install-recommends -y \
-    qtbase5-dev \
-    libfftw3-dev \
-    cmake \
-    pkg-config \
-    libliquid-dev \
-    build-essential \
-    git
-apt-get autoremove -y --purge
-apt-get clean
+wrapt qtbase5-dev libfftw3-dev cmake pkg-config \
+      libliquid-dev build-essential git
 
-cd /opt
-git clone https://github.com/miek/inspectrum.git
-cd inspectrum/
+git clone https://github.com/miek/inspectrum.git /tmp/inspectrum
 
+cd /tmp/inspectrum
 mkdir build && cd build/
 cmake .. && make -j4
 make install
-cd .. && rm -rf build
+cd /
 
-rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
+rm -rf /tmp/*
+

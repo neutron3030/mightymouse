@@ -3,7 +3,8 @@
 set -e
 source /app/scripts/.functions
 
-wrapt /app/packages/system.txt
+wrapt gcc cmake cmake-curses-gui gdb cgdb
+wrapt /app/packages/c.txt
 
 rm -rf /tmp/*
 

@@ -1,50 +1,25 @@
 #!/bin/bash
 
 set -e
+source /app/scripts/.functions
 
-# Install dependencies
-apt-get update
-apt-get upgrade -y
-apt-get install --no-install-recommends -y \
-    kmod \
-    libncurses5 \
-    libncursesw5 \
-    openjdk-8-jdk
-apt-get autoremove -y --purge
-apt-get clean
+distro="ubuntu2204"
+arch="x86_64"
+version="12.1"
 
-# Install Cuda Toolkit
-DRIVER_VERSION="510.47.03"
-CUDA_VERSION="11.6"
-CUDA_PATCH="2"
-DOWNLOAD_URL="https://developer.download.nvidia.com/compute/cuda/${CUDA_VERSION}.${CUDA_PATCH}/local_installers/cuda_${CUDA_VERSION}.${CUDA_PATCH}_${DRIVER_VERSION}_linux.run"
-RUN_FILE="/tmp/cuda_${CUDA_VERSION}.${CUDA_PATCH}_${DRIVER_VERSION}_linux.run"
-wget ${DOWNLOAD_URL} -O ${RUN_FILE}
-chmod +x ${RUN_FILE}
+wrapt wget git g++ openjdk-8-jre freeglut3-dev build-essential libx11-dev \
+      libgtk2.0-0 libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev \
+      libglfw3-dev
 
-${RUN_FILE} \
---silent \
---override \
---no-opengl-libs \
---toolkit \
---toolkitpath=/opt/cuda \
---samples \
---samplespath=/opt/cuda/samples
+wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb -O /tmp/cuda-keyring_1.1-1_all.deb
+dpkg -i /tmp/cuda-keyring_1.1-1_all.deb
+wrapt cuda-toolkit-${version//./-}
 
 echo >> ${HOME}/.bashrc
-echo 'export CUDA_PATH="/opt/cuda"' >> ${HOME}/.bashrc
-echo 'export PATH="${PATH}:${CUDA_PATH}/bin"' >> ${HOME}/.bashrc
-echo 'export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${CUDA_PATH}/lib64"' >> ${HOME}/.bashrc
+echo 'export PATH=/usr/local/cuda-'$version'/bin${PATH:+:${PATH}}' >> ${HOME}/.bashrc
 echo >> ${HOME}/.bashrc
 
-source ${HOME}/.bashrc
-ldconfig
+git clone https://github.com/NVIDIA/cuda-samples.git /usr/local/cuda-$version/samples
 
-# Install Cuda Samples
-DOWNLOAD_URL="https://github.com/NVIDIA/cuda-samples/archive/refs/tags/v${CUDA_VERSION}.tar.gz"
-TAR_FILE="/tmp/v${CUDA_VERSION}.tar.gz"
-wget ${DOWNLOAD_URL} -O ${TAR_FILE}
-tar -xzvf ${TAR_FILE} -C /opt/cuda
-
-rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
+rm -rf /tmp/*
 

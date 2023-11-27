@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -e
+source /app/scripts/.functions
+
+wrapt git
 
 export NVM_DIR="$HOME/.nvm" && (
   git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
@@ -16,4 +19,6 @@ echo >> ${HOME}/.bashrc
 
 nvm install node
 nvm install-latest-npm
+
+rm -rf /tmp/*
 

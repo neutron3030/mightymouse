@@ -1,0 +1,11 @@
+libcurl4-gnutls-dev
+libevent-dev
+libfftw3-dev
+libgcrypt20-dev
+libgnutls28-dev
+libhiredis-dev
+libmicrohttpd-dev
+libpcap-dev
+libreoffice
+libwebsockets-dev
+libzmq3-dev
