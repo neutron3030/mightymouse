@@ -61,6 +61,12 @@ COPY scripts/vscode.sh /app/scripts
 RUN /app/scripts/vscode.sh
 
 # ------------------------------------------------------------------------------
+# Copy dotfiles
+COPY dotfiles/.bashrc /tmp
+COPY dotfiles/.config/ /tmp/.config/
+RUN mv /tmp/.bashrc /tmp/.config $HOME
+
+# ------------------------------------------------------------------------------
 # Define default command
 CMD ["/app/app.sh"]
 
