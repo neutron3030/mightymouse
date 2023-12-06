@@ -10,7 +10,7 @@ wrapt() {
 
     apt-get update && apt-get upgrade -y
 
-    if [[ -d $1 ]] || [[ -f $1 ]]; then
+    if [[ -f $1 ]]; then
         apt-get install --no-install-recommends -y $(cat $1)
     else
         apt-get install --no-install-recommends -y $@  # glob all args = $@
