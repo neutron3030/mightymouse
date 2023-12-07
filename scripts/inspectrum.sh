@@ -4,7 +4,7 @@ set -e
 source /app/scripts/.functions
 
 wrapt qtbase5-dev libfftw3-dev cmake pkg-config \
-      libliquid-dev build-essential git
+      libliquid-dev libc6-dev build-essential git
 
 git clone https://github.com/miek/inspectrum.git /tmp/inspectrum
 

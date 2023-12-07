@@ -60,11 +60,23 @@ RUN /app/scripts/nvm-npm-node-packages.sh
 COPY scripts/vscode.sh /app/scripts
 RUN /app/scripts/vscode.sh
 
+COPY scripts/fira-code.sh /app/scripts
+RUN /app/scripts/fira-code.sh
+
+COPY scripts/vim.sh /app/scripts
+RUN /app/scripts/vim.sh
+
 # ------------------------------------------------------------------------------
 # Copy dotfiles
 COPY dotfiles/.bashrc /tmp
+COPY dotfiles/.tmux.conf/ /tmp
 COPY dotfiles/.config/ /tmp/.config/
-RUN mv /tmp/.bashrc /tmp/.config $HOME
+COPY dotfiles/.vim/ /tmp/.vim/
+COPY dotfiles/.local/ /tmp/.local/
+
+RUN mv /tmp/.bashrc /tmp/.tmux.conf /tmp/.config $HOME
+RUN cp -aT /tmp/.vim $HOME/.vim && rm -rf /tmp/.vim
+RUN cp -aT /tmp/.local $HOME/.local && rm -rf /tmp/.local
 
 # ------------------------------------------------------------------------------
 # Define default command

@@ -71,6 +71,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # ----------------------------------------------------------------------------
 # More aliases
-alias google-chrome='google-chrome-stable --no-sandbox --disable-gpu'
-alias nvvp='nvvp -vm /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java'
-alias code='code --no-sandbox --user-data-dir $HOME/vscode'
+alias google-chrome='/usr/bin/google-chrome-stable --no-sandbox --disable-gpu'
+alias nvvp='/usr/local/cuda-12.1/bin/nvvp -vm /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java'
+alias code='/usr/share/code/code --no-sandbox --user-data-dir $HOME/vscode'
+alias drawio='/opt/drawio/drawio --no-sandbox'
+alias greed='/usr/games/greed'

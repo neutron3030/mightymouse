@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Greed
+Comment=curses-based clone of the DOS free-ware game Greed
+Exec=/usr/games/greed
+Icon=greed
+Terminal=true
+Type=Application
+Categories=Game;LogicGame;
+Keywords=terminal;text;logic;game;
